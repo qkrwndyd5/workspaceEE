@@ -18,12 +18,20 @@ public class HelloAttributeTag extends TagSupport{
 
 	@Override
 	public int doStartTag() throws JspException {
-		
-		return super.doStartTag();
+		try {
+			String msg="";
+			if(irum.equals("김경호")) {
+				msg = "잘생긴 "+irum+" 님 안녕하세요.<br>";
+			}else {
+				msg = irum+" 님 안녕하세요.<br>";
+				
+			}
+			pageContext.getOut().println(msg);
+			
+		}catch (Exception e) {
+			
+		}
+		return SKIP_BODY;
 	}
-	@Override
-	public int doEndTag() throws JspException {
-		
-		return super.doEndTag();
-	}
+	
 }

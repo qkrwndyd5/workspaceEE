@@ -18,10 +18,32 @@
 <itwill:hello/>
 
 ---------------helloAttr tag----------------------<br>
-
+<itwill:helloAttr irum="김경호" />
+<itwill:helloAttr irum="공유" />
+<itwill:helloAttr irum="${name}" />
+<itwill:helloAttr irum="${sUserId}" />
 
 ---------------if tag[body]----------------------<br>
+<itwill:if test="true">
+	반드시 실행<br>
+</itwill:if>
+<itwill:if test="false">
+	반드시 안실행<br>
+</itwill:if>
 
+<itwill:if test="${sUserId == null }">
+	GUEST님 안녕하세요<br>
+</itwill:if>
+<itwill:if test="${sUserId != null}">
+	${sUserId} 님안뇽하세요<br>
+</itwill:if>
+
+<itwill:if test="${empty sUserId }">
+	<a href="user_login_form.jsp">로그인</a>
+</itwill:if>
+<itwill:if test="${empty sUserId }">
+	<a href="user_logout_action.jsp">${sUserId} 님 로그아웃</a>
+</itwill:if>
 
 </body>
 </html>
