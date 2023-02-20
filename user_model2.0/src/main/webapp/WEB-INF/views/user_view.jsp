@@ -1,5 +1,5 @@
 <%@page import="com.itwill.user.User"%>
-<%@page import="com.itwill.user.UserService"%>
+<%@page import="com.itwill.user.UserServiceImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -74,20 +74,20 @@
 										<td width=100 align=center bgcolor="E6ECDE" height="22">사용자
 											아이디</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											guard1
+											${loginUser }
 										</td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">이름</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											김경호1
+											${loginUser.name }
 										</td>
 									</tr>
 									<tr>
 										<td width=100 align=center bgcolor="E6ECDE" height="22">이메일
 											주소</td>
 										<td width=490 bgcolor="ffffff" style="padding-left: 10">
-											guard1@gmail.com
+											${loginUser.email }
 										</td>
 									</tr>
 								</table>

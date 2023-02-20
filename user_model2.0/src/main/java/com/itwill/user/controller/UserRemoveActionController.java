@@ -5,12 +5,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.itwill.summer.mvc.Controller;
 import com.itwill.user.UserService;
+import com.itwill.user.UserServiceImpl;
 
 public class UserRemoveActionController implements Controller {
-	
+	private UserService userService;
+	public UserRemoveActionController() throws Exception {
+		userService = new UserServiceImpl();
+	}
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		String forwardPath = "";
+		String sUserId=(String)request.getSession().getAttribute("sUserId");
 		/**************** login_check *******************/
 		
 		/*********************************************/
@@ -22,6 +27,18 @@ public class UserRemoveActionController implements Controller {
 		4.성공: redirect:user_main.do  forwardPath반환
 		  실패: forward:/WEB-INF/views/user_error.jsp  forwardPath반환
 		*/
+		try {
+			if(request.getMethod().equalsIgnoreCase(sUserId)) {
+				forwardPath = "redirect:user_main.do";
+				return forwardPath;
+			}
+			int result = userService.remove(sUserId);
+			request.getSession().invalidate();
+			forwardPath = "redirect:user_main.do";
+		}catch (Exception e) {
+			e.printStackTrace();
+			forwardPath="forward:/WEB-INF/views/user_error.jsp";
+		}
 		
 		return forwardPath;
 	}

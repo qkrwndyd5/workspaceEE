@@ -6,12 +6,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.itwill.summer.mvc.Controller;
 import com.itwill.user.User;
 import com.itwill.user.UserService;
+import com.itwill.user.UserServiceImpl;
 
 public class UserModifyActionController implements Controller {
-	
+	private UserService userService;
+	public UserModifyActionController() throws Exception {
+		userService = new UserServiceImpl();
+	}
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 		String forwardPath = "";
+		String sUserId=(String)request.getSession().getAttribute("sUserId");
 		/**************** login_check *******************/
 		
 		/*********************************************/
@@ -24,6 +29,20 @@ public class UserModifyActionController implements Controller {
 		5.성공: redirect:user_view.do forwardPath반환
 		  실패: forward:/WEB-INF/views/user_error.jsp  forwardPath반환
 		*/
+		try {
+			if(request.getMethod().equalsIgnoreCase("GET")) {
+				forwardPath = "redirect:user_main.do";
+				return forwardPath;
+			}
+			String password = request.getParameter("password");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			int updateRowCount = userService.update(new User(sUserId, password, name, email));
+			forwardPath = "redirect:user_view.do";
+		}catch (Exception e) {
+			e.printStackTrace();
+			forwardPath = "forward:/WEB-INF/views/user_error.jsp";
+		}
 		
 		return forwardPath;
 	}
